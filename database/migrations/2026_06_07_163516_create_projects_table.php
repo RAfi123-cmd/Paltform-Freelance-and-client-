@@ -13,19 +13,20 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->strin('name');
+            $table->string('name');
             $table->string('slug');
             $table->string('thumbnail');
             $table->string('skill_level');
             $table->text('about');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('budget');
-            $table->unsignedBigInteger('client_id');
+            // $table->unsignedBigInteger('client_id');
             $table->boolean('has_finished');
             $table->boolean('has_started');
             $table->softDeletes();
             $table->timestamps();
 
+            // references client id disini
             $table->foreignId('client_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

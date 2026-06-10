@@ -70,7 +70,7 @@ class RolePermissionSeeder extends Seeder
         $user = User::create([
             'name' => 'Super Admin',
             'email' => 'super@admin.com',
-            'acupation' => 'Owner',
+            'occupation' => 'Owner',
             'connect' => 99999,
             'avatar' => 'images/default-avatar.png',
             'password' => bcrypt('123123123')

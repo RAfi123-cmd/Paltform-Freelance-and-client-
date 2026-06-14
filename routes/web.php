@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('can:apply job')->group(function() {
         Route::get('/apply/{project:slug}', [FrontController::class, 'apply_job'])->name('front.apply_job');
         Route::post('/apply/{project:slug}/submit', [FrontController::class, 'apply_job_store'])->name('front.apply_job.store');
-        Route::get('/dasboard/proposals', [DashboardController::class, 'proposals'])->name('dashboard.proposasl');
+        Route::get('/dasboard/proposals', [DashboardController::class, 'proposals'])->name('dashboard.proposals');
         Route::get('/dashboard/proposal_details/{projects}/{projectApplicant}', [DashboardController::class, 'proposal_details'])->name('dashboard.proposal_details');
     });
 
@@ -44,26 +44,26 @@ Route::middleware('auth')->group(function () {
         Route::middleware('can:manage wallet')->group(function() {
             Route::get('/wallet/topups', [WalletTransactionController::class, 'wallet_topups'])->name('topups');
             Route::get('/wallet/withdrawls', [WalletTransactionController::class, 'wallet_withdrawals'])->name('withdrawals');
-            Route::resource('wallet_transactions', [WalletTransactionController::class]);
+            Route::resource('wallet_transactions', WalletTransactionController::class);
         });
 
         Route::middleware('can:manage applicants')->group(function () {
-            Route::resource('project_applicants', [ProjectApplicantController::class]);
+            Route::resource('project_applicants', ProjectApplicantController::class);
         });
 
         Route::middleware('can:manage projects')->group(function() {
-            Route::resource('projects', [ProjectController::class]);
+            Route::resource('projects', ProjectController::class);
             Route::post('/project/{projectApplicant}/completed', [ProjectController::class, 'complete_project_store']);
             Route::get('/project/{project}/tools', [ProjectController::class, 'tools'])->name('projects.tools');
             Route::post('/project/{project}/tools/store', [ProjectController::class, 'tools_store'])->name('projects.tools.store');
-            Route::resource('/project_tools', [ProjectController::class]);
+            Route::resource('/project_tools', ProjectController::class);
         });
 
         Route::middleware('can:manage categories')->group(function () {
-            Route::resource('categories', [CategoryController::class]);
+            Route::resource('categories', CategoryController::class);
         });
         Route::middleware('can:manage tools')->group(function (){
-            Route::resource('tools', [ToolController::class]);
+            Route::resource('tools', ToolController::class);
         });
     });
 });
